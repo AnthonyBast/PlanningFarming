@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-  background-color: #5bc0de;
+	background-color : white;
 }
 
 input {
@@ -18,6 +18,16 @@ color : white;
 .erreurSpan {
 	background : red;
 border-radius : 3px;
+}
+
+.body {
+	margin-top : 50px;
+	  background-color: #F5F5F5;
+	  padding-bottom : 50px;
+	  margin-left : 5%;
+	  margin-right : 5%;
+	  border: 1px solid black;
+	  border-radius : 10px;
 }
 
 .division {

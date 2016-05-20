@@ -27,23 +27,26 @@
 		<meta http-equiv="Content-Language" content="French" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
-<body class="body">
+	
+<body>
+	<div class="body">
 	<div id="header">
-		<h1 align="center">Calendrier de Farming</h1>
+		<h1 style="padding-top:30px;" align="center">Calendrier de Farming</h1>
 	</div>
 
-	<div margin-top="100px" id="content">
+	<div id="content">
 		<h3 align="center">Connexion</h2>
 		<div >
 			<FORM METHOD=POST ACTION="DALConnexion">
-			<p class="erreur" align="center"><span class="erreurSpan">${error}</span></p>
-			<p align="center"><INPUT TYPE=TEXT NAME="login" placeholder="Pseudo"></p>
-			<p align="center"><INPUT TYPE="password" NAME="pass" placeholder="Mot de passe"></p>
-			<div align="center">
+			<p style="margin-top:50px;" class="erreur" align="center"><span class="erreurSpan">${error}</span></p>
+			<p style="margin-top:20px;"align="center"><INPUT TYPE=TEXT NAME="login" placeholder="Pseudo"></p>
+			<p style="margin-top:20px;"align="center"><INPUT TYPE="password" NAME="pass" placeholder="Mot de passe"></p>
+			<div style="margin-top:20px;" align="center">
 				<INPUT margin="auto" class="btn btn-default" TYPE=SUBMIT VALUE="Connexion">
 			</div>
 			</FORM>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

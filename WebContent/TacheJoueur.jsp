@@ -24,7 +24,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 <body>
-	<div id="header">
+<div class="body">
+<div id="header">
 		<h1 align="center">Tâche</h1>
 	</div>
 	<div id="content">
@@ -65,5 +66,7 @@
 			</FORM>
 		</div>
 	</div>
+</div>
+	
 </body>
 </html>
