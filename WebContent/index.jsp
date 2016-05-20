@@ -2,25 +2,46 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta charset="utf-8" />
+<link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+<link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+        crossorigin="anonymous">
+
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous">
+</script>
+
+<link rel="stylesheet" type="text/css" href="stylesheet/style.css" media="screen">
+
 <html>
 	<head>
-		<title>Farming Site</title>
+		<title>Connexion</title>
 		<meta http-equiv="Content-Language" content="French" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
-<body>
+<body class="body">
 	<div id="header">
-		<h1>Site de programmation de farm</h1>
+		<h1 align="center">Calendrier de Farming</h1>
 	</div>
 
-	<div id="content">
-		<h2>Connexion</h2>
-		<div>
+	<div margin-top="100px" id="content">
+		<h3 align="center">Connexion</h2>
+		<div >
 			<FORM METHOD=POST ACTION="DALConnexion">
-			<span class="label label-danger">${error}</span>
-			<p>Login : <INPUT TYPE=TEXT NAME="login"></p>
-			<p>Password  : <INPUT TYPE="password" NAME="pass"></p>
-			<INPUT TYPE=SUBMIT VALUE="Connexion">
+			<p class="erreur" align="center"><span class="erreurSpan">${error}</span></p>
+			<p align="center"><INPUT TYPE=TEXT NAME="login" placeholder="Pseudo"></p>
+			<p align="center"><INPUT TYPE="password" NAME="pass" placeholder="Mot de passe"></p>
+			<div align="center">
+				<INPUT margin="auto" class="btn btn-default" TYPE=SUBMIT VALUE="Connexion">
+			</div>
 			</FORM>
 		</div>
 	</div>

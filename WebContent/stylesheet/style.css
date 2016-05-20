@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+
+body {
+  background-color: #5bc0de;
+}
+
+input {
+	height : 32px;
+	border-radius : 5px;
+}
+
+.erreur {
+align : center;	
+color : white;
+
+}
+
+.erreurSpan {
+	background : red;
+border-radius : 3px;
+}

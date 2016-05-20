@@ -43,7 +43,7 @@ public class DALConnexion extends HttpServlet {
 		} else {
 			// Sinon on vérifie que le mot de passe n'est pas vide non plus, s'il l'est on met un message d'erreur
 			if (mdp.equals("")) {
-				Erreur("Le mot de passe ne doit pas être vide.", request, response);
+				Erreur("Le mot de passe ne doit pas être vide", request, response);
 			} else {
 				// Si tout est ok on essaie de récupérer en BDD l'utilisateur qui correspond au pseudo/mdp
 				monUtil = getUserByLogin(pseudo, mdp);
