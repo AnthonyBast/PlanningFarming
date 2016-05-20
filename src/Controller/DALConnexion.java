@@ -43,30 +43,19 @@ public class DALConnexion extends HttpServlet {
 				throw new Exception("Le mot de passe ne peut pas être vide");
 			}
 			else {
+				try {
 			    monUtil = getUserByLogin(pseudo, mdp);
+			    HttpSession session = request.getSession(true);
+				session.setAttribute(Integer.toString(monUtil.getIdUtilisateur()), "idUtilisateur");
 				
-				if (monUtil.equals(null)) {
-					ok = false;
-					throw new Exception("Mauvaise combinaison login/mot de passe");
+				System.out.println((String)session.getAttribute("idUtilisateur"));
 				}
-				else {
-					ok = true;
+				catch (Exception Exception) {
+					 request.setAttribute("error", Exception.getMessage());
+					   request.getRequestDispatcher("/index.html")
+					   .forward(request, response);
 				}
 			}
-		}
-		
-		if (ok == true) {
-			// mettre la page de pierre
-			HttpSession session = request.getSession(true);
-			session.setAttribute(Integer.toString(monUtil.getIdUtilisateur()), "idUtilisateur");
-			
-			System.out.println((String)session.getAttribute("idUtilisateur"));
-			
-			response.sendRedirect("index.html");
-		}
-		else
-		{
-			response.sendRedirect("index.html");
 		}
 	}
 	
