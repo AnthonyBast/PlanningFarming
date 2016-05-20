@@ -1,13 +1,36 @@
 package Controller;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import Métier.Connexion;
 import Métier.Utilisateur;
 
-public class DALConnexion {
+public class DALConnexion extends HttpServlet {
+	
+	private static final long serialVersionUID = -2135238259758756344L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/index.html")
+			.forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String pseudo = request.getParameter("login");
+		String mdp = request.getParameter("pass");
+		Utilisateur monUtil = getUserByLogin(pseudo, mdp);
+		
+	}
+	
 	public Utilisateur getUserByLogin(String pseudo, String password){
 		
 		Connexion connect = new Connexion();
@@ -15,12 +38,14 @@ public class DALConnexion {
 		Statement myStmt = null;
 		ResultSet myRs = null;
 		Utilisateur utilisateur = new Utilisateur();
-
 		try {
+			String lol;
 			String sql = "SELECT * FROM Utilisateur WHERE pseudo = '" + pseudo +"' AND motDePasse = '" + password + "';";
+
 			myStmt = connect.getConnexion().createStatement();
+			System.out.println("création ok");
 			myRs = myStmt.executeQuery(sql);
-			
+			System.out.println("création ok");
 			while (myRs.next()){
 				utilisateur.setIdUtilisateur(myRs.getInt("idUtilisateur"));
 				utilisateur.setNom(myRs.getString("nom"));
