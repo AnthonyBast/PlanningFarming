@@ -15,7 +15,6 @@ public class DALConnexion {
 		Statement myStmt = null;
 		ResultSet myRs = null;
 		Utilisateur utilisateur = new Utilisateur();
-		
 
 		try {
 			String sql = "SELECT * FROM Utilisateur WHERE pseudo = '" + pseudo +"' AND motDePasse = '" + password + "';";

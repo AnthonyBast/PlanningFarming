@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.logging.Logger;
 
 public class Connexion {
-	
 
 	/**
 	 * Pour les messages

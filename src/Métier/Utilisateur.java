@@ -10,7 +10,6 @@ public class Utilisateur {
 	private String motDePasse;
 	private String statut;
 	
-	
 	public Utilisateur(){
 		this.idUtilisateur = 0;
 		this.nom = "";

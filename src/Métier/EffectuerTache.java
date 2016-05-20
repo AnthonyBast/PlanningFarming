@@ -3,15 +3,14 @@ package Métier;
 import java.sql.Date;
 
 public class EffectuerTache {
-	Utilisateur utilisateur;
-	Tache tache;
-	Boolean isEffectuer;
-	Date dateHeureDebut;
-	Date dateHeureFin;
+	private Utilisateur utilisateur;
+	private Tache tache;
+	private Boolean isEffectuer;
+	private Date dateHeureDebut;
+	private Date dateHeureFin;
 	
 	public EffectuerTache(){
 		this.utilisateur = new Utilisateur();
-		
 		this.tache = new Tache();
 		this.isEffectuer = false;
 		this.dateHeureDebut = new Date(0);

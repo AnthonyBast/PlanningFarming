@@ -6,7 +6,6 @@ public class Cible {
 	private String lieu;
 	private String typeCible;
 	
-	
 	public Cible(){
 		this.idCible = 0;
 		this.nom = "";

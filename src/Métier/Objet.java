@@ -11,7 +11,6 @@ public class Objet {
 		this.cible = new Cible();
 	}
 	
-	
 	public Objet(int idObjet, String nom, Cible cible){
 		this.idObjet = idObjet;
 		this.nom = nom;
