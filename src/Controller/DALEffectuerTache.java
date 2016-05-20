@@ -11,7 +11,7 @@ public class DALEffectuerTache {
 		Statement myStmt = null;
 		
 		try {
-			String sql = "UPDATE EffectuerTache set isEffectuer=true WHERE idUtilisateur="+idUtilisateur+";" ;
+			String sql = "UPDATE EffectuerTache set isEffectuer=1 WHERE idUtilisateur="+idUtilisateur+";" ;
 			myStmt = myConnect.getConnexion().createStatement();
 			myStmt.executeUpdate(sql);
 		}

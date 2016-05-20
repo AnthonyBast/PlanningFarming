@@ -14,11 +14,11 @@ public class ObjetTache {
 		this.nbDrop = nbDrop;
 	}
 
-	public Objet getListeObjet() {
+	public Objet getObjet() {
 		return Objet;
 	}
 
-	public void setListeObjet(Objet Objet) {
+	public void setObjet(Objet Objet) {
 		this.Objet = Objet;
 	}
 

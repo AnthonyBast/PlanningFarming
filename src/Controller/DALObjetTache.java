@@ -19,7 +19,7 @@ public class DALObjetTache {
 		ArrayList<ObjetTache> listeObjets = new ArrayList<ObjetTache>();
 
 		try {
-			String sql = "SELECT * FROM ObjetTache WHERE idObjet = "+idTache+";";
+			String sql = "SELECT * FROM ObjetTache WHERE idTache = "+idTache+";";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
