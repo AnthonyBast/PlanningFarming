@@ -16,8 +16,8 @@
 	<div id="content">
 		<h2>Connexion</h2>
 		<div>
-		    <span class="label label-danger">${error}</span>
 			<FORM METHOD=POST ACTION="DALConnexion">
+			<span class="">${error}</span>
 			<p>Login : <INPUT TYPE=TEXT NAME="login"></p>
 			<p>Password  : <INPUT TYPE="password" NAME="pass"></p>
 			<INPUT TYPE=SUBMIT VALUE="Connexion">
