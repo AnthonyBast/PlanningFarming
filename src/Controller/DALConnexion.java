@@ -35,15 +35,16 @@ public class DALConnexion extends HttpServlet {
 		if (pseudo.equals("")) {
 			Exception exc = new Exception("Le pseudo ne doit pas être vide.");
 			request.setAttribute("error", exc.getMessage());
-			System.out.println((String)request.getAttribute("error"));
-			//request.getRequestDispatcher("/index.jsp");
-			   response.sendRedirect("index.jsp");
+			request.getRequestDispatcher("/index.jsp")
+			.forward(request, response);
+			   //response.sendRedirect("index.jsp");
 		}
 		else {
 			if (mdp.equals("")) {
 				Exception exc = new Exception("Le mot de passe ne doit pas être vide.");
 				request.setAttribute("error", exc.getMessage());
-				   response.sendRedirect("index.jsp");
+				request.getRequestDispatcher("/index.jsp")
+				.forward(request, response);
 			}
 			else {
 				try {

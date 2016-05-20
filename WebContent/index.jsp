@@ -17,7 +17,7 @@
 		<h2>Connexion</h2>
 		<div>
 			<FORM METHOD=POST ACTION="DALConnexion">
-			<p><%String test = ""; System.out.println("test"); try { test = request.getAttribute("error").toString(); System.out.println("test2"); } catch (Exception e) { } %><%=test %></p>
+			<span class="label label-danger">${error}</span>
 			<p>Login : <INPUT TYPE=TEXT NAME="login"></p>
 			<p>Password  : <INPUT TYPE="password" NAME="pass"></p>
 			<INPUT TYPE=SUBMIT VALUE="Connexion">
