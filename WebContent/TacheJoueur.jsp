@@ -1,5 +1,22 @@
 <%@ page import="Métier.*,Controller.*" %>
 <jsp:useBean id="tache" scope="request" class="Métier.Tache" />
+<meta charset="utf-8" />
+<link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+<link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+        crossorigin="anonymous">
+
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous">
+</script>
+<link rel="stylesheet" type="text/css" href="stylesheet/style.css" media="screen">
 <html>
 	<head>
 		<title>Tâche</title>
@@ -8,15 +25,15 @@
 	</head>
 <body>
 	<div id="header">
-		<h1>Tâche</h1>
+		<h1 align="center">Tâche</h1>
 	</div>
 	<div id="content">
-		<h2>${tache.libelle}</h2>
+		<h2 align="center">${tache.libelle}</h2>
 		<div>
-			<p>Description : ${tache.description}</p>
-			<p>Durée requise (en minute) : ${tache.dureeMin}</p>
-			<p>Objet(s) à Farm : </p>
-			<table border="1">
+			<p style="margin-left:5em;  font-weight: bold;">Description : ${tache.description}</p>
+			<p style="margin-left:5em; font-weight: bold;">Durée requise (en minute) : ${tache.dureeMin}</p>
+			<p style="margin-left:5em; font-weight: bold;">Objet(s) à Farm : </p>
+			<table class="table table-striped" border="1">
   				<tr>
        				<th>Nom Objet</th>
        				<th>Monstre</th>
@@ -39,7 +56,9 @@
 			</br>	
 			
 			<FORM METHOD=POST ACTION="TacheJoueur">
-				<INPUT TYPE=SUBMIT VALUE="Tâche effectuée" NAME="Effectuer">
+				<div align="center">
+				<INPUT class="btn btn-default" TYPE=SUBMIT VALUE="Tâche effectuée" NAME="Effectuer">
+				</div>
 			</FORM>
 		</div>
 	</div>
