@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Exception.*;
+import Exception.Exception;
 import Métier.Connexion;
 import Métier.Utilisateur;
 
@@ -26,10 +28,41 @@ public class DALConnexion extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		boolean ok = false;
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
-		Utilisateur monUtil = getUserByLogin(pseudo, mdp);
-		System.out.println(monUtil.getNom());
+		if (pseudo.equals("")) {
+			ok = false;
+			throw new Exception("Le pseudo ne peut pas être vide");
+		}
+		else {
+			if (mdp.equals("")) {
+				ok = false;
+				throw new Exception("Le mot de passe ne peut pas être vide");
+			}
+			else {
+				Utilisateur monUtil = getUserByLogin(pseudo, mdp);
+				
+				if (monUtil.equals(null)) {
+					ok = false;
+					throw new Exception("Mauvaise combinaison login/mot de passe");
+				}
+				else {
+ok = true;
+					// création session utilisateur
+					
+					// Redirection vers la page du calendrier
+				}
+			}
+		}
+		
+		if (ok == true) {
+			response.sendRedirect("accueil.jsp");
+		}
+		else
+		{
+			response.sendRedirect("index.html");
+		}
 	}
 	
 	public Utilisateur getUserByLogin(String pseudo, String password){
@@ -61,7 +94,7 @@ public class DALConnexion extends HttpServlet {
 				myRs.close();
 				myStmt.close();
 			}
-			catch (Exception exc) {
+			catch (Exception | SQLException exc) {
 				connect.getLogger().severe(exc.toString());
 			}
 		
