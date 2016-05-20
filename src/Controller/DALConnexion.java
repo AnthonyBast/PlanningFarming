@@ -26,7 +26,6 @@ public class DALConnexion extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("test");
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
 		Utilisateur monUtil = getUserByLogin(pseudo, mdp);
@@ -34,22 +33,16 @@ public class DALConnexion extends HttpServlet {
 	}
 	
 	public Utilisateur getUserByLogin(String pseudo, String password){
-		
 		Connexion connect = new Connexion();
-		
 		Statement myStmt = null;
 		ResultSet myRs = null;
 		Utilisateur utilisateur = new Utilisateur();
 		try {
-			String lol;
 			String sql = "SELECT * FROM Utilisateur WHERE pseudo = '" + pseudo +"' AND motDePasse = '" + password + "';";
-
 			myStmt = connect.getConnexion().createStatement();
-			System.out.println("création ok");
 			myRs = myStmt.executeQuery(sql);
-			System.out.println("création ok");
 			while (myRs.next()){
-				utilisateur.setIdUtilisateur(myRs.getInt("idUtilisateur"));
+				utilisateur.setIdUtilisateur(myRs.getInt("id"));
 				utilisateur.setNom(myRs.getString("nom"));
 				utilisateur.setPrenom(myRs.getString("prenom"));
 				utilisateur.setVille(myRs.getString("ville"));
