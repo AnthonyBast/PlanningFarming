@@ -9,21 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-   <servlet>
+    <servlet>
         <servlet-name>DALConnexion</servlet-name>
         <servlet-class>Controller.DALConnexion</servlet-class>
     </servlet>
-     <servlet>
-        <servlet-name>TacheAffichage</servlet-name>
-        <servlet-class>Controller.TacheAffichage</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>DALConnexion</servlet-name>
         <url-pattern>/DALConnexion</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TacheAffichage</servlet-name>
-        <url-pattern>/TacheJoueur</url-pattern>
-    </servlet-mapping>
+    <session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
 </web-app>
