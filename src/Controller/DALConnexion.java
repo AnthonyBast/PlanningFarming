@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Exception.*;
 import Exception.Exception;
@@ -28,6 +29,7 @@ public class DALConnexion extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Utilisateur monUtil;
 		boolean ok = false;
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
@@ -41,23 +43,26 @@ public class DALConnexion extends HttpServlet {
 				throw new Exception("Le mot de passe ne peut pas être vide");
 			}
 			else {
-				Utilisateur monUtil = getUserByLogin(pseudo, mdp);
+			    monUtil = getUserByLogin(pseudo, mdp);
 				
 				if (monUtil.equals(null)) {
 					ok = false;
 					throw new Exception("Mauvaise combinaison login/mot de passe");
 				}
 				else {
-ok = true;
-					// création session utilisateur
-					
-					// Redirection vers la page du calendrier
+					ok = true;
 				}
 			}
 		}
 		
 		if (ok == true) {
-			response.sendRedirect("accueil.jsp");
+			// mettre la page de pierre
+			HttpSession session = request.getSession(true);
+			session.setAttribute(Integer.toString(monUtil.getIdUtilisateur()), "idUtilisateur");
+			
+			System.out.println((String)session.getAttribute("idUtilisateur"));
+			
+			response.sendRedirect("index.html");
 		}
 		else
 		{
