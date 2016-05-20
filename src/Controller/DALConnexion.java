@@ -25,10 +25,12 @@ public class DALConnexion extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("test");
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
 		Utilisateur monUtil = getUserByLogin(pseudo, mdp);
-		
+		System.out.println(monUtil.getNom());
 	}
 	
 	public Utilisateur getUserByLogin(String pseudo, String password){
