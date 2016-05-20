@@ -30,9 +30,10 @@
 	<div id="content">
 		<h2 align="center">${tache.libelle}</h2>
 		<div>
-			<p style="margin-left:5em;  font-weight: bold;">Description : ${tache.description}</p>
-			<p style="margin-left:5em; font-weight: bold;">Durée requise (en minute) : ${tache.dureeMin}</p>
-			<p style="margin-left:5em; font-weight: bold;">Objet(s) à Farm : </p>
+			<p style="margin-left:15%;  font-weight: bold;">Description : ${tache.description}</p>
+			<p style="margin-left:15%; font-weight: bold;">Durée requise (en minutes) : ${tache.dureeMin}</p>
+			<p style="margin-left:15%; font-weight: bold;">Objet(s) à farmer : </p>
+			<div class="division">
 			<table class="table table-striped" border="1">
   				<tr>
        				<th>Nom Objet</th>
@@ -52,7 +53,9 @@
 					out.println("</tr>");
 				}
 			%>
-			</table>	
+			</table>
+			</div>
+				
 			</br>	
 			
 			<FORM METHOD=POST ACTION="TacheJoueur">
