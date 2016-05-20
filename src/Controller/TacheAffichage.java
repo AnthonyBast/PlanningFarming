@@ -16,7 +16,7 @@ public class TacheAffichage extends HttpServlet{
 
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			request.getRequestDispatcher("/index.html")
+			request.getRequestDispatcher("")
 				.forward(request, response);
 		}
 

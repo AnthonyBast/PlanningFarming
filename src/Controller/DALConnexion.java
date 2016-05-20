@@ -22,22 +22,22 @@ public class DALConnexion extends HttpServlet {
 	// Méthode doGet qui permet de récupérer les informations de la page précédente (non utilisée du coup)
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/index.html")
+		request.getRequestDispatcher("/index.jsp")
 			.forward(request, response);
 	}
 
 	// Méthode doPost qui est utilisée lors du clic sur le bouton se connecter 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Utilisateur monUtil;
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
 		if (pseudo.equals("")) {
 			Exception exc = new Exception("Le pseudo ne doit pas être vide.");
 			request.setAttribute("error", exc.getMessage());
-			request.getRequestDispatcher("/index.jsp");
-			   //response.sendRedirect("index.jsp");
+			System.out.println((String)request.getAttribute("error"));
+			//request.getRequestDispatcher("/index.jsp");
+			   response.sendRedirect("index.jsp");
 		}
 		else {
 			if (mdp.equals("")) {
