@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Métier.Connexion;
+import Métier.Objet;
 import Métier.ObjetTache;
 
 public class DALObjetTache {
@@ -44,5 +45,55 @@ public class DALObjetTache {
 		}
 		
 		return listeObjets;
+	}
+
+	public static void addObjetToTache(int idTache, String libelleObjet, int nbDrop) {
+		Connexion myConnect = new Connexion();
+		Statement myStmt = null;
+		DALObjet DALObjet = new DALObjet();
+		Objet objet = DALObjet.getObjetByLibelle(libelleObjet);
+		
+		try {
+			String sql = "insert into objettache (idTache,idObjet,nbDrop) values (" + idTache + "," + objet.getIdObjet() + "," + nbDrop + ");";
+			myStmt = myConnect.getConnexion().createStatement();
+			myStmt.executeUpdate(sql);
+		}
+		catch(SQLException exc) {
+			myConnect.getLogger().severe(exc.toString());
+			myConnect.getLogger().severe("Echec");
+		}
+		finally{
+			try {
+				myStmt.close();
+			}
+			catch (Exception exc) {
+				myConnect.getLogger().severe(exc.toString());
+				myConnect.getLogger().severe("Echec");
+			}
+		}
+	}
+
+	public  void deleteObjetTacheById(int idTache, int idObjet) {
+		Connexion myConnect = new Connexion();
+		Statement myStmt = null;
+		
+		try {
+			String sql = "delete from objettache where idTache="+idTache+ " and idObjet="+idObjet+";";
+			myStmt = myConnect.getConnexion().createStatement();
+			myStmt.executeUpdate(sql);
+		}
+		catch(SQLException exc) {
+			myConnect.getLogger().severe(exc.toString());
+			myConnect.getLogger().severe("Echec");
+		}
+		finally{
+			try {
+				myStmt.close();
+			}
+			catch (Exception exc) {
+				myConnect.getLogger().severe(exc.toString());
+				myConnect.getLogger().severe("Echec");
+			}
+		}
 	}
 }
