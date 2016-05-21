@@ -1,33 +1,37 @@
 @CHARSET "ISO-8859-1";
 
-body {
-	background-color : white;
+.bodyB {
+	background-color : #cccccc;
+	background-image : url("../images/css-background2.jpg");
+	background-repeat: no-repeat;
+	height: 100%;
+    margin: 0;
 }
 
 input {
 	height : 32px;
 	border-radius : 5px;
 }
-
 .erreur {
 align : center;	
 color : white;
 
 }
-
+    	
 .erreurSpan {
 	background : red;
 border-radius : 3px;
 }
 
 .body {
-	margin-top : 50px;
+	  margin-top : 50px;
 	  background-color: #F5F5F5;
-	  padding-bottom : 50px;
+	  padding-bottom : 50px; 
 	  margin-left : 5%;
 	  margin-right : 5%;
 	  border: 1px solid black;
 	  border-radius : 10px;
+	  min-height : 95%;
 }
 
 .division {
