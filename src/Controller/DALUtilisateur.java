@@ -52,7 +52,7 @@ public class DALUtilisateur {
 		ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
 
 		try {
-			String sql = "SELECT * FROM Utilisateur WHERE id NOT IN (Select idUtilisateur FROM effectuertache where idTache="+idTache+");";
+			String sql = "SELECT * FROM Utilisateur WHERE id NOT IN (Select idUtilisateur FROM effectuertache where idTache="+idTache+") and statut=\"joueur\";";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
