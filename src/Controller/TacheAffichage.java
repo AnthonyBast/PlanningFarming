@@ -21,7 +21,7 @@ public class TacheAffichage extends HttpServlet{
 
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			request.getRequestDispatcher("/index.html")
+			request.getRequestDispatcher("/index.jsp")
 				.forward(request, response);
 		}
 
@@ -34,11 +34,7 @@ public class TacheAffichage extends HttpServlet{
 			DALObjet DALObjet = new DALObjet();
 			DALObjetTache DALObjetTache = new DALObjetTache();
 			EffectuerTache effectuerTache = new EffectuerTache();
-			Date dateTache = new Date(2016,05,22);	
-			ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet();
-			request.setAttribute("listeDesObjets", listeDesObjets);
-			ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur();
-			request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);			
+			Date dateTache = new Date(2016,05,22);					
 			
 			Utilisateur utilisateur = DALUtilisateur.getUtilisateurById(1);
 			utilisateur.setStatut("admin");
@@ -63,8 +59,7 @@ public class TacheAffichage extends HttpServlet{
 						&& !request.getParameter("description").equals("") && request.getParameter("dureeMin")!= null && !request.getParameter("dureeMin").equals("")){
 					String dateDebut = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+request.getParameter("heureDebut")+":"+request.getParameter("minDebut")+":00";
 					String dateFin = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+request.getParameter("heureFin")+":"+request.getParameter("minFin")+":00";
-					DALTache.updateTache((int)session.getAttribute("idTache"),request.getParameter("libelle"),request.getParameter("description"),request.getParameter("dureeMin"));
-					DALEffectuerTache.updateEffectuerTache(2, (int)session.getAttribute("idTache"), dateDebut, dateFin);
+					DALTache.updateTache((int)session.getAttribute("idTache"),request.getParameter("libelle"),request.getParameter("description"),request.getParameter("dureeMin"),dateDebut,dateFin);
 					session.setAttribute("libelleEmpty",request.getParameter("libelle"));
 					session.setAttribute("descriptionEmpty",request.getParameter("description"));
 					session.setAttribute("dureeEmpty",request.getParameter("dureeMin"));
@@ -76,6 +71,10 @@ public class TacheAffichage extends HttpServlet{
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
 					//session.setAttribute("listeUtilisateurs", listeUtilisateurs);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
@@ -90,13 +89,17 @@ public class TacheAffichage extends HttpServlet{
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
 					session.setAttribute("dureeEmpty",session.getAttribute("dureeEmpty"));
-					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
-					session.setAttribute("minDebut",request.getParameter("minDebut"));
-					session.setAttribute("heureFin",request.getParameter("heureFin"));
-					session.setAttribute("minFin",request.getParameter("minFin"));
+					session.setAttribute("heureDebut",session.getAttribute("heureDebut"));
+					session.setAttribute("minDebut",session.getAttribute("minDebut"));
+					session.setAttribute("heureFin",session.getAttribute("heureFin"));
+					session.setAttribute("minFin",session.getAttribute("minFin"));
 					tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
@@ -109,12 +112,16 @@ public class TacheAffichage extends HttpServlet{
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
 					session.setAttribute("dureeEmpty",session.getAttribute("dureeEmpty"));
-					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
-					session.setAttribute("minDebut",request.getParameter("minDebut"));
-					session.setAttribute("heureFin",request.getParameter("heureFin"));
-					session.setAttribute("minFin",request.getParameter("minFin"));
+					session.setAttribute("heureDebut",session.getAttribute("heureDebut"));
+					session.setAttribute("minDebut",session.getAttribute("minDebut"));
+					session.setAttribute("heureFin",session.getAttribute("heureFin"));
+					session.setAttribute("minFin",session.getAttribute("minFin"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);					
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
@@ -125,12 +132,16 @@ public class TacheAffichage extends HttpServlet{
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
 					session.setAttribute("dureeEmpty",session.getAttribute("dureeEmpty"));
-					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
-					session.setAttribute("minDebut",request.getParameter("minDebut"));
-					session.setAttribute("heureFin",request.getParameter("heureFin"));
-					session.setAttribute("minFin",request.getParameter("minFin"));
+					session.setAttribute("heureDebut",session.getAttribute("heureDebut"));
+					session.setAttribute("minDebut",session.getAttribute("minDebut"));
+					session.setAttribute("heureFin",session.getAttribute("heureFin"));
+					session.setAttribute("minFin",session.getAttribute("minFin"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
@@ -144,13 +155,17 @@ public class TacheAffichage extends HttpServlet{
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
 					session.setAttribute("dureeEmpty",session.getAttribute("dureeEmpty"));
-					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
-					session.setAttribute("minDebut",request.getParameter("minDebut"));
-					session.setAttribute("heureFin",request.getParameter("heureFin"));
-					session.setAttribute("minFin",request.getParameter("minFin"));
+					session.setAttribute("heureDebut",session.getAttribute("heureDebut"));
+					session.setAttribute("minDebut",session.getAttribute("minDebut"));
+					session.setAttribute("heureFin",session.getAttribute("heureFin"));
+					session.setAttribute("minFin",session.getAttribute("minFin"));
 					tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
@@ -161,17 +176,22 @@ public class TacheAffichage extends HttpServlet{
 					String dateFin = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+session.getAttribute("heureFin")+":"+session.getAttribute("minFin")+":00";
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					//DALEffectuerTache.insertEffectuerTache((int)session.getAttribute("idUtilisateur"), tache.getIdTache(), dateDebut, dateFin);
-					DALEffectuerTache.insertEffectuerTache(2, tache.getIdTache(), dateDebut, dateFin);					
+					Utilisateur user = DALUtilisateur.getUtilisateurByPseudo(request.getParameter("listeJoueurs"));
+					DALEffectuerTache.insertEffectuerTache(user.getIdUtilisateur(), tache.getIdTache());					
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
 					session.setAttribute("dureeEmpty",session.getAttribute("dureeEmpty"));
-					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
-					session.setAttribute("minDebut",request.getParameter("minDebut"));
-					session.setAttribute("heureFin",request.getParameter("heureFin"));
-					session.setAttribute("minFin",request.getParameter("minFin"));
+					session.setAttribute("heureDebut",session.getAttribute("heureDebut"));
+					session.setAttribute("minDebut",session.getAttribute("minDebut"));
+					session.setAttribute("heureFin",session.getAttribute("heureFin"));
+					session.setAttribute("minFin",session.getAttribute("minFin"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);					
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
@@ -198,6 +218,10 @@ public class TacheAffichage extends HttpServlet{
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
 					//session.setAttribute("listeUtilisateurs", listeUtilisateurs);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
@@ -205,17 +229,24 @@ public class TacheAffichage extends HttpServlet{
 				}					
 				else if (request.getParameter("creer") != null && request.getParameter("libelle") != null && !request.getParameter("libelle").equals("") && request.getParameter("description") != null
 						&& !request.getParameter("description").equals("") && request.getParameter("dureeMin")!= null && !request.getParameter("dureeMin").equals("")){
-					DALTache.createTache(request.getParameter("libelle"),request.getParameter("description"),Integer.parseInt(request.getParameter("dureeMin")));
-					Tache tache = DALTache.getTacheByLibelle(request.getParameter("libelle"),request.getParameter("description"));
-					session.setAttribute("libelleEmpty",request.getParameter("libelle"));
-					session.setAttribute("descriptionEmpty",request.getParameter("description"));
-					session.setAttribute("dureeEmpty",request.getParameter("dureeMin"));
 					session.setAttribute("heureDebut",request.getParameter("heureDebut"));
 					session.setAttribute("minDebut",request.getParameter("minDebut"));
 					session.setAttribute("heureFin",request.getParameter("heureFin"));
 					session.setAttribute("minFin",request.getParameter("minFin"));
+					String dateDebut = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+session.getAttribute("heureDebut")+":"+session.getAttribute("minDebut")+":00";
+					String dateFin = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+session.getAttribute("heureFin")+":"+session.getAttribute("minFin")+":00";
+					DALTache.createTache(request.getParameter("libelle"),request.getParameter("description"),Integer.parseInt(request.getParameter("dureeMin")),dateDebut,dateFin);
+					Tache tache = DALTache.getTacheByLibelle(request.getParameter("libelle"),request.getParameter("description"));
+					session.setAttribute("libelleEmpty",request.getParameter("libelle"));
+					session.setAttribute("descriptionEmpty",request.getParameter("description"));
+					session.setAttribute("dureeEmpty",request.getParameter("dureeMin"));
+					
 					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					session.setAttribute("idTache", tache.getIdTache());
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);

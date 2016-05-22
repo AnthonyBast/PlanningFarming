@@ -43,7 +43,7 @@ public class DALUtilisateur {
 		return utilisateur;
 	}
 
-	public ArrayList<Utilisateur> getAllUtilisateur() {
+	public ArrayList<Utilisateur> getAllUtilisateur(int idTache) {
 		Connexion connect = new Connexion();
 		
 		Statement myStmt = null;
@@ -52,7 +52,7 @@ public class DALUtilisateur {
 		ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
 
 		try {
-			String sql = "SELECT * FROM Utilisateur;";
+			String sql = "SELECT * FROM Utilisateur WHERE id NOT IN (Select idUtilisateur FROM effectuertache where idTache="+idTache+");";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
@@ -110,5 +110,38 @@ public class DALUtilisateur {
 		}
 		
 		return listeUtilisateurs;
+	}
+
+	public Utilisateur getUtilisateurByPseudo(String pseudo) {
+		Connexion connect = new Connexion();
+		
+		Statement myStmt = null;
+		ResultSet myRs = null;
+		Utilisateur utilisateur = null;
+
+		try {
+			String sql = "SELECT * FROM Utilisateur WHERE pseudo = \""+pseudo+"\";";
+			myStmt = connect.getConnexion().createStatement();
+			myRs = myStmt.executeQuery(sql);
+			
+			while (myRs.next()){
+				utilisateur = new Utilisateur(myRs.getInt("id"),myRs.getString("nom"),myRs.getString("prenom"),myRs.getString("ville"),myRs.getString("codePostale"),myRs.getString("pseudo"),myRs.getString("motDePasse"),myRs.getString("statut"));		
+			}
+		}
+		catch (SQLException exc) {
+			connect.getLogger().severe(exc.toString());
+		}
+		finally {
+			try {
+				myRs.close();
+				myStmt.close();
+			}
+			catch (Exception exc) {
+				connect.getLogger().severe(exc.toString());
+			}
+		
+		}
+		
+		return utilisateur;		
 	}
 }

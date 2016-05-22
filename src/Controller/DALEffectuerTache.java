@@ -33,12 +33,12 @@ public class DALEffectuerTache {
 		}
 	}
 	
-	public void insertEffectuerTache(int idUtilisateur, int idTache, String dateDebut, String dateFin){
+	public void insertEffectuerTache(int idUtilisateur, int idTache){
 		Connexion myConnect = new Connexion();
 		Statement myStmt = null;
 		
 		try {
-			String sql = "insert into EffectuerTache values(" + idUtilisateur + "," + idTache + ",0,\"" + dateDebut + "\",\"" + dateFin + "\");" ;
+			String sql = "insert into EffectuerTache values(" + idUtilisateur + "," + idTache + ",0);" ;
 			myStmt = myConnect.getConnexion().createStatement();
 			myStmt.executeUpdate(sql);
 		}
@@ -66,14 +66,12 @@ public class DALEffectuerTache {
 		DALUtilisateur DALUtilisateur = new DALUtilisateur();
 
 		try {
-			String sql = "SELECT *, Hour(dateHeureDebut) as hourDebut, Minute(dateHeureDebut) as minuteDebut, Hour(dateHeureFin) as hourFin, Minute(dateHeureFin) as minuteFin FROM EffectuerTache WHERE idTache = "+idTache+" and idUtilisateur = " + idUtilisateur + ";";
+			String sql = "SELECT * FROM EffectuerTache WHERE idTache = "+idTache+" and idUtilisateur = "+idUtilisateur+";";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
 			while (myRs.next()){
-				effectuerTache = new EffectuerTache(DALUtilisateur.getUtilisateurById(myRs.getInt("idUtilisateur")),DALTache.getTacheById(myRs.getInt("idTache"))
-						,myRs.getBoolean("isEffectuer"),myRs.getDate("dateHeureDebut"),myRs.getDate("dateHeureFin"),myRs.getInt("hourDebut"),myRs.getInt("minuteDebut")
-						,myRs.getInt("hourFin"),myRs.getInt("minuteFin"));		
+				effectuerTache = new EffectuerTache(DALUtilisateur.getUtilisateurById(idUtilisateur),DALTache.getTacheById(idTache),myRs.getBoolean("isEffectuer"));		
 			}
 		}
 		catch (SQLException exc) {

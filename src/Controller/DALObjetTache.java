@@ -47,7 +47,7 @@ public class DALObjetTache {
 		return listeObjets;
 	}
 
-	public static void addObjetToTache(int idTache, String libelleObjet, int nbDrop) {
+	public void addObjetToTache(int idTache, String libelleObjet, int nbDrop) {
 		Connexion myConnect = new Connexion();
 		Statement myStmt = null;
 		DALObjet DALObjet = new DALObjet();

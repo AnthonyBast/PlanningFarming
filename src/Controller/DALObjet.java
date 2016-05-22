@@ -42,7 +42,7 @@ public class DALObjet {
 		
 		return objet;
 	}
-	public ArrayList<Objet> getAllObjet(){
+	public ArrayList<Objet> getAllObjet(int idTache){
 		Connexion connect = new Connexion();
 		
 		Statement myStmt = null;
@@ -52,7 +52,7 @@ public class DALObjet {
 		DALCible dalCible = new DALCible();
 
 		try {
-			String sql = "SELECT * FROM Objet;";
+			String sql = "SELECT * FROM Objet WHERE idObjet NOT IN (Select idObjet FROM objettache where idTache="+idTache+");";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			

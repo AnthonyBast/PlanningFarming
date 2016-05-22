@@ -17,12 +17,13 @@ public class DALTache {
 		DALObjetTache DALObjetTache = new DALObjetTache();
 
 		try {
-			String sql = "SELECT * FROM Tache WHERE idTache = "+idTache+";";
+			String sql = "SELECT *, Hour(dateHeureDebut) as hourDebut, Minute(dateHeureDebut) as minuteDebut, Hour(dateHeureFin) as hourFin, Minute(dateHeureFin) as minuteFin FROM Tache WHERE idTache = "+idTache+";";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
 			while (myRs.next()){
-				tache = new Tache(myRs.getInt("idTache"),myRs.getString("libelle"),myRs.getString("description"),myRs.getInt("dureeMin"),DALObjetTache.getAllObjetTacheById(idTache));		
+				tache = new Tache(myRs.getInt("idTache"),myRs.getString("libelle"),myRs.getString("description"),myRs.getInt("dureeMin"),DALObjetTache.getAllObjetTacheById(idTache),myRs.getDate("dateHeureDebut"),
+						myRs.getDate("dateHeureFin"),myRs.getInt("hourDebut"),myRs.getInt("minuteDebut"),myRs.getInt("hourFin"),myRs.getInt("minuteFin"));		
 			}
 		}
 		catch (SQLException exc) {
@@ -42,12 +43,12 @@ public class DALTache {
 		return tache;
 	}
 
-	public void createTache(String libelle, String description, int dureeMin) {
+	public void createTache(String libelle, String description, int dureeMin, String dateDebut, String dateFin) {
 		Connexion myConnect = new Connexion();
 		Statement myStmt = null;
 		
 		try {
-			String sql = "insert into tache (libelle,description,dureemin) values (\"" + libelle + "\",\"" + description + "\"," + dureeMin + ");";
+			String sql = "insert into tache (libelle,description,dureemin,dateHeureDebut,dateHeureFin) values (\"" + libelle + "\",\"" + description + "\"," + dureeMin + ",\""+dateDebut+"\",\""+dateFin+"\");";
 			myStmt = myConnect.getConnexion().createStatement();
 			myStmt.executeUpdate(sql);
 		}
@@ -75,12 +76,13 @@ public class DALTache {
 		DALObjetTache DALObjetTache = new DALObjetTache();
 
 		try {
-			String sql = "SELECT * FROM Tache WHERE libelle = \""+libelle+"\" and description = \"" + description + "\";";
+			String sql = "SELECT *, Hour(dateHeureDebut) as hourDebut, Minute(dateHeureDebut) as minuteDebut, Hour(dateHeureFin) as hourFin, Minute(dateHeureFin) as minuteFin FROM Tache WHERE libelle = \""+libelle+"\" and description = \"" + description + "\";";
 			myStmt = connect.getConnexion().createStatement();
 			myRs = myStmt.executeQuery(sql);
 			
 			if (myRs.next()){
-				tache = new Tache(myRs.getInt("idTache"),myRs.getString("libelle"),myRs.getString("description"),myRs.getInt("dureeMin"),DALObjetTache.getAllObjetTacheById(myRs.getInt("idTache")));		
+				tache = new Tache(myRs.getInt("idTache"),myRs.getString("libelle"),myRs.getString("description"),myRs.getInt("dureeMin"),DALObjetTache.getAllObjetTacheById(myRs.getInt("idTache")),myRs.getDate("dateHeureDebut"),
+						myRs.getDate("dateHeureFin"),myRs.getInt("hourDebut"),myRs.getInt("minuteDebut"),myRs.getInt("hourFin"),myRs.getInt("minuteFin"));		
 			}
 		}
 		catch (SQLException exc) {
@@ -100,12 +102,12 @@ public class DALTache {
 		return tache;
 	}
 
-	public void updateTache(int idTache, String libelle, String description, String dureeMin) {
+	public void updateTache(int idTache, String libelle, String description, String dureeMin,String dateDebut, String dateFin) {
 		Connexion myConnect = new Connexion();
 		Statement myStmt = null;
 		
 		try {
-			String sql =  "UPDATE Tache set libelle=\"" + libelle + "\", description = \"" + description + "\", dureeMin = " + dureeMin + " WHERE idTache="+idTache+";";
+			String sql =  "UPDATE Tache set libelle=\"" + libelle + "\", description = \"" + description + "\", dureeMin = " + dureeMin + ", dateHeureDebut = \""+ dateDebut+"\", dateHeureFin = \""+dateFin+"\" WHERE idTache="+idTache+";";
 			myStmt = myConnect.getConnexion().createStatement();
 			myStmt.executeUpdate(sql);
 		}

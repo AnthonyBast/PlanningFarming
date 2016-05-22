@@ -13,9 +13,9 @@
 	</div>
 	<div id="content">
 		<h2>${tache.libelle} du <%
-			int month = effectuerTache.getDateHeureDebut().getMonth()+1;
-			int year = effectuerTache.getDateHeureDebut().getYear()+1900;
-			out.println(effectuerTache.getDateHeureDebut().getDate()+"/"+month+"/"+year); 
+			int month = tache.getDateHeureDebut().getMonth()+1;
+			int year = tache.getDateHeureDebut().getYear()+1900;
+			out.println(tache.getDateHeureDebut().getDate()+"/"+month+"/"+year); 
 			%>: 
 		<% 
 			if(effectuerTache.getIsEffectuer())
@@ -37,19 +37,19 @@
        				<th>Nb à drop</th>
    				</tr>
    			<%
-				for(int i=0;i<tache.getObjetTache().size();i++){
+				for(int i=0;i<tache.getListeObjetTache().size();i++){
 					out.println("<tr>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getNom() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getNom() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getTypeCible() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getLieu() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getNbDrop() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getNom() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getNom() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getTypeCible() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getLieu() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getNbDrop() + "</center></td>");
 					out.println("</tr>");
 				}
 			%>
 			</table>	
-			<p>Heure de début : ${effectuerTache.heureDebut}h<% if(effectuerTache.getMinuteDebut()<10 && effectuerTache.getMinuteDebut()>=0){%>0${effectuerTache.minuteDebut}<% }else {%> ${effectuerTache.minuteDebut} <% } %></p>
-			<p>Heure de fin :  ${effectuerTache.heureFin}h<% if(effectuerTache.getMinuteFin()<10 && effectuerTache.getMinuteFin()>=0){%>0${effectuerTache.minuteFin}<% }else {%> ${effectuerTache.minuteFin} <% } %></p>
+			<p>Heure de début : ${tache.heureDebut}h<% if(tache.getMinuteDebut()<10 && tache.getMinuteDebut()>=0){%>0${tache.minuteDebut}<% }else {%> ${tache.minuteDebut} <% } %></p>
+			<p>Heure de fin :  ${tache.heureFin}h<% if(tache.getMinuteFin()<10 && tache.getMinuteFin()>=0){%>0${tache.minuteFin}<% }else {%> ${tache.minuteFin} <% } %></p>
 			<% 
 			if(!effectuerTache.getIsEffectuer()){
 				%>

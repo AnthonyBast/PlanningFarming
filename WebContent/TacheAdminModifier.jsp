@@ -77,14 +77,14 @@
        				<th>Supprimer</th>
    				</tr>
    				<%
-				for(int i=0;i<tache.getObjetTache().size();i++){
+				for(int i=0;i<tache.getListeObjetTache().size();i++){
 					out.println("<tr>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getNom() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getNom() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getTypeCible() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getObjet().getCible().getLieu() + "</center></td>");
-					out.println("<td><center>" + tache.getObjetTache().get(i).getNbDrop() + "</center></td>");
-					out.println("<td><center><form action=\"TacheAffichage\" method=\"post\"><button type=\"submit\" name=\"removeObjet\" value=\"" + tache.getObjetTache().get(i).getObjet().getIdObjet() + "\" class=\"btn-link\">Supprimer</button></form></center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getNom() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getNom() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getTypeCible() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getObjet().getCible().getLieu() + "</center></td>");
+					out.println("<td><center>" + tache.getListeObjetTache().get(i).getNbDrop() + "</center></td>");
+					out.println("<td><center><form action=\"TacheAffichage\" method=\"post\"><button type=\"submit\" name=\"removeObjet\" value=\"" + tache.getListeObjetTache().get(i).getObjet().getIdObjet() + "\" class=\"btn-link\">Supprimer</button></form></center></td>");
 					out.println("</tr>");
 				}
 				%>

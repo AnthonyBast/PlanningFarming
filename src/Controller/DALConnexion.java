@@ -46,12 +46,12 @@ public class DALConnexion extends HttpServlet {
 				try {
 			    monUtil = getUserByLogin(pseudo, mdp);
 			    HttpSession session = request.getSession(true);
-				session.setAttribute(Integer.toString(monUtil.getIdUtilisateur()), "idUtilisateur");
-				response.sendRedirect("accueil.jsp");
+				session.setAttribute("idUtilisateur",Integer.toString(monUtil.getIdUtilisateur()));
+				response.sendRedirect("TacheAffichage");
 				}
 				catch (Exception Exception) {
 					 request.setAttribute("error", Exception.getMessage());
-					   response.sendRedirect("index.html");
+					   response.sendRedirect("index.jsp");
 				}
 			}
 		}
