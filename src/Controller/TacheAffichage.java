@@ -21,6 +21,7 @@ public class TacheAffichage extends HttpServlet{
 
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			request.getRequestDispatcher("/accueil.jsp")
 				.forward(request, response);
 		}
 
