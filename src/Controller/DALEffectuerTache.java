@@ -9,12 +9,12 @@ import Métier.Connexion;
 import Métier.EffectuerTache;
 
 public class DALEffectuerTache {
-	public void updateIsEffectuer(int idUtilisateur){
+	public void updateIsEffectuer(int idUtilisateur, int idTache){
 		Connexion myConnect = new Connexion();
 		Statement myStmt = null;
 		
 		try {
-			String sql = "UPDATE EffectuerTache set isEffectuer=1 WHERE idUtilisateur="+idUtilisateur+";" ;
+			String sql = "UPDATE EffectuerTache set isEffectuer=1 WHERE idUtilisateur="+idUtilisateur+" and idTache ="+idTache+";" ;
 			myStmt = myConnect.getConnexion().createStatement();
 			myStmt.executeUpdate(sql);
 		}

@@ -16,7 +16,7 @@
 			<FORM METHOD=POST ACTION="TacheAffichage">
 				<p>Libelle : <INPUT VALUE="${libelleEmpty}" TYPE=TEXT NAME="libelle" size="75"></p>
 				<p>Description : <INPUT VALUE="${descriptionEmpty}" TYPE=TEXT NAME="description" size="150"></p>
-				<p>Durée Minimum : <INPUT VALUE="${dureeEmpty}" TYPE=TEXT NAME="dureeMin" size="35"></p>
+				<p>Durée Estimée (en minute) : <INPUT VALUE="${dureeEmpty}" TYPE=TEXT NAME="dureeMin" size="35"></p>
 				<p>Heure de début : 
 				<select name="heureDebut" id="heureDebut">
 					<%

@@ -21,7 +21,6 @@ public class TacheAffichage extends HttpServlet{
 
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			request.getRequestDispatcher("/index.jsp")
 				.forward(request, response);
 		}
 
@@ -34,21 +33,18 @@ public class TacheAffichage extends HttpServlet{
 			DALObjet DALObjet = new DALObjet();
 			DALObjetTache DALObjetTache = new DALObjetTache();
 			EffectuerTache effectuerTache = new EffectuerTache();
-			Date dateTache = new Date(2016,05,22);					
+			Date dateTache = new Date(0);			
+			Utilisateur utilisateur = DALUtilisateur.getUtilisateurById((int)session.getAttribute("idUtilisateur"));
+			dateTache = (Date)session.getAttribute("date");
+			session.setAttribute("idUtilisateur",(int)session.getAttribute("idUtilisateur"));
+			session.setAttribute("date",(Date)session.getAttribute("date"));
 			
-			Utilisateur utilisateur = DALUtilisateur.getUtilisateurById(1);
-			utilisateur.setStatut("admin");
-			//Utilisateur utilisateur = DALUtilisateur.getUtilisateurById((int)session.getAttribute("idUtilisateur"));
-			//dateTache = (Date)session.getAttribute("date");
 			if(utilisateur.getStatut().equals("joueur")){
+				Tache tache = DALTache.getTacheById((int)session.getAttribute("idTacheSelect"));
 				if(request.getParameter("Effectuer") != null){
-					//DALEffectuerTache.updateIsEffectuer((int)session.getAttribute("idUtilisateur"));
-					DALEffectuerTache.updateIsEffectuer(1);
+					DALEffectuerTache.updateIsEffectuer((int)session.getAttribute("idUtilisateur"),tache.getIdTache());
 				}
-				Tache tache = DALTache.getTacheById(1);
-				//Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
-				effectuerTache = DALEffectuerTache.getEffectuerTacheById(tache.getIdTache(),1);
-				//DALEffectuerTache.getEffectuerTacheById(tache.getIdTache(),(int)session.getAttribute("idUtilisateur"));
+				effectuerTache = DALEffectuerTache.getEffectuerTacheById(tache.getIdTache(),utilisateur.getIdUtilisateur());
 				request.setAttribute("tache", tache);
 				request.setAttribute("effectuerTache", effectuerTache);				
 				request.getRequestDispatcher("/TacheJoueur.jsp")
@@ -76,7 +72,6 @@ public class TacheAffichage extends HttpServlet{
 					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);
-					//session.setAttribute("listeUtilisateurs", listeUtilisateurs);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
 				}
@@ -84,7 +79,6 @@ public class TacheAffichage extends HttpServlet{
 					int idRemove = Integer.parseInt(request.getParameter("removeObjet"));
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					DALObjetTache.deleteObjetTacheById(tache.getIdTache(),idRemove);
-					//DALObjetTache.deleteObjetTacheById((int)session.getAttribute("idUtilisateur"),idRemove);
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
@@ -105,7 +99,6 @@ public class TacheAffichage extends HttpServlet{
 					.forward(request, response);
 				}
 				else if(request.getParameter("AjoutObjet") != null && request.getParameter("nbDrop") != null && !request.getParameter("nbDrop").equals("")){
-					//DALObjetTache.addObjetToTache((int)session.getAttribute("idUtilisateur"),request.getParameter("listeObjets"),request.getParameter("nbDrop"));
 					DALObjetTache.addObjetToTache((int)session.getAttribute("idTache"),request.getParameter("listeObjets"),Integer.parseInt(request.getParameter("nbDrop")));
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));
@@ -123,6 +116,26 @@ public class TacheAffichage extends HttpServlet{
 					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
 					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
 					request.setAttribute("tache", tache);					
+					request.getRequestDispatcher("/TacheAdminModifier.jsp")
+					.forward(request, response);
+				}
+				else if(request.getParameter("modiftask") != null){
+					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTacheSelect"));
+					session.setAttribute("idTache", tache.getIdTache());
+					session.setAttribute("libelleEmpty",tache.getLibelle());
+					session.setAttribute("descriptionEmpty",tache.getDescription());
+					session.setAttribute("dureeEmpty",tache.getDureeMin());
+					session.setAttribute("heureDebut",tache.getHeureDebut());
+					session.setAttribute("minDebut",tache.getMinuteDebut());
+					session.setAttribute("heureFin",tache.getHeureFin());
+					session.setAttribute("minFin",tache.getMinuteFin());
+					ArrayList<Utilisateur> listeDesUtilisateursByTache = DALUtilisateur.getAllUtilisateurByTache(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateursByTache", listeDesUtilisateursByTache);
+					ArrayList<Objet> listeDesObjets = DALObjet.getAllObjet(tache.getIdTache());
+					request.setAttribute("listeDesObjets", listeDesObjets);
+					ArrayList<Utilisateur> listeDesUtilisateurs = DALUtilisateur.getAllUtilisateur(tache.getIdTache());
+					request.setAttribute("listeDesUtilisateurs", listeDesUtilisateurs);		
+					request.setAttribute("tache", tache);
 					request.getRequestDispatcher("/TacheAdminModifier.jsp")
 					.forward(request, response);
 				}
@@ -150,7 +163,6 @@ public class TacheAffichage extends HttpServlet{
 					int idRemove = Integer.parseInt(request.getParameter("removeJoueur"));
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
 					DALEffectuerTache.deleteEffectuerTacheById(tache.getIdTache(),idRemove);
-					//DALObjetTache.deleteObjetTacheById((int)session.getAttribute("idUtilisateur"),idRemove);
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));
 					session.setAttribute("libelleEmpty",session.getAttribute("libelleEmpty"));
 					session.setAttribute("descriptionEmpty",session.getAttribute("descriptionEmpty"));
@@ -171,11 +183,9 @@ public class TacheAffichage extends HttpServlet{
 					.forward(request, response);
 				}
 				else if(request.getParameter("AjoutJoueur") != null){
-					//DALObjetTache.addObjetToTache((int)session.getAttribute("idUtilisateur"),request.getParameter("listeObjets"),request.getParameter("nbDrop"));
 					String dateDebut = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+session.getAttribute("heureDebut")+":"+session.getAttribute("minDebut")+":00";
 					String dateFin = dateTache.getYear()+"-"+dateTache.getMonth()+"-"+dateTache.getDate()+" "+session.getAttribute("heureFin")+":"+session.getAttribute("minFin")+":00";
 					Tache tache = DALTache.getTacheById((int)session.getAttribute("idTache"));
-					//DALEffectuerTache.insertEffectuerTache((int)session.getAttribute("idUtilisateur"), tache.getIdTache(), dateDebut, dateFin);
 					Utilisateur user = DALUtilisateur.getUtilisateurByPseudo(request.getParameter("listeJoueurs"));
 					DALEffectuerTache.insertEffectuerTache(user.getIdUtilisateur(), tache.getIdTache());					
 					session.setAttribute("idTache", (int)session.getAttribute("idTache"));

@@ -15,7 +15,7 @@
 			<FORM METHOD=POST ACTION="TacheAffichage">
 				<p>Libelle : <INPUT VALUE="<% out.println(session.getAttribute("libelleEmpty")); %>" TYPE=TEXT NAME="libelle" size="75"></p>
 				<p>Description : <INPUT VALUE="<% out.println(session.getAttribute("descriptionEmpty")); %>" TYPE=TEXT NAME="description" size="150"></p>
-				<p>Durée Minimum : <INPUT VALUE="<% out.println(session.getAttribute("dureeEmpty")); %>" TYPE=TEXT NAME="dureeMin" size="35"></p>
+				<p>Durée Estimée (en minute) : <INPUT VALUE="<% out.println(session.getAttribute("dureeEmpty")); %>" TYPE=TEXT NAME="dureeMin" size="35"></p>
 				<p>Heure de début : 
 				<select name="heureDebut" id="heureDebut">
 					<%

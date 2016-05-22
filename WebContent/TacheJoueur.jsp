@@ -26,7 +26,7 @@
 		</h2>
 		<div>
 			<p>Description : ${tache.description}</p>
-			<p>Durée requise (en minute) : ${tache.dureeMin}</p>
+			<p>Durée Estimée (en minute) : ${tache.dureeMin}</p>
 			<p>Objet(s) à Farm : </p>
 			<table border="1">
   				<tr>
