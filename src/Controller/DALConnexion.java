@@ -22,7 +22,7 @@ public class DALConnexion extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/index.html")
+		request.getRequestDispatcher("/index.jsp")
 			.forward(request, response);
 	}
 
@@ -30,31 +30,43 @@ public class DALConnexion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Utilisateur monUtil;
-		boolean ok = false;
 		String pseudo = request.getParameter("login");
 		String mdp = request.getParameter("pass");
+		
+		
 		if (pseudo.equals("")) {
-			ok = false;
-			throw new Exception("Le pseudo ne peut pas être vide");
+			Exception("Le pseudo ne doit pas être vide", request, response);
 		}
 		else {
 			if (mdp.equals("")) {
-				ok = false;
-				throw new Exception("Le mot de passe ne peut pas être vide");
+				
+				Exception("Le mot de passe ne doit pas être vide", request, response);
 			}
 			else {
 				try {
 			    monUtil = getUserByLogin(pseudo, mdp);
-			    HttpSession session = request.getSession(true);
-				session.setAttribute("idUtilisateur",Integer.toString(monUtil.getIdUtilisateur()));
-				response.sendRedirect("TacheAffichage");
+			    if (monUtil.getPseudo().equals("")) {
+					Exception("Mauvaise combinaison pseudo/mdp", request, response);
+			    }
+			    else {
+			    	 HttpSession session = request.getSession(true);
+						session.setAttribute("idUtilisateur",Integer.toString(monUtil.getIdUtilisateur()));
+						request.getRequestDispatcher("/CalendrierAffichage")
+						   .forward(request, response);
+			    }
+			   
 				}
 				catch (Exception Exception) {
-					 request.setAttribute("error", Exception.getMessage());
-					   response.sendRedirect("index.jsp");
+					Exception("Mauvaise combinaison pseudo/mdp", request, response);
 				}
 			}
 		}
+	}
+	
+	public void Exception(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		   request.setAttribute("error", message);
+		   request.getRequestDispatcher("/index.jsp")
+		   .forward(request, response);
 	}
 	
 	public Utilisateur getUserByLogin(String pseudo, String password){
@@ -76,9 +88,14 @@ public class DALConnexion extends HttpServlet {
 				utilisateur.setMotDePasse(myRs.getString("motDePasse"));
 				utilisateur.setStatut(myRs.getString("statut"));
 			}
+			
+			if (utilisateur.getPseudo().equals("")) {
+				utilisateur = new Utilisateur();
+			}
 		}
 		catch (SQLException exc) {
 			connect.getLogger().severe(exc.toString());
+			utilisateur = new Utilisateur();
 		}
 		finally {
 

@@ -91,8 +91,12 @@ ef =(ArrayList<EffectuerTache>) request.getAttribute("ef");
 											}
 										}
 									%>
-									</td>
-									
+								</td>
+							</TR>
+							<TR height="50" bgcolor="lavender">
+								<td>
+									<input type="button" value="+ task"/>
+								</td>
 							</TR>
 							</TABLE>
 						</TD>
